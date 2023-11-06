@@ -5,10 +5,22 @@ from .models import TodoItem
 from .serializers import TodoItemSerializer
 
 class TodoItemView(viewsets.ModelViewSet):
+    '''
+    A viewset for managing TodoItem objects.
+
+    This viewset provides CRUD operations (Create, Read, Update, Delete) for TodoItem objects.
+    - `list`: Retrieves a list of all TodoItem objects.
+    - `create`: Creates a new TodoItem object.
+    - `update`: Updates an existing TodoItem object.
+    - `destroy`: Deletes a TodoItem object from the todo list.
+    '''
     queryset = TodoItem.objects.all()
     serializer_class = TodoItemSerializer
 
     def list(self, request, *args, **kwargs):
+        '''
+        `list`: Retrieves a list of all TodoItem objects.
+        '''
         try:
             queryset = self.get_queryset()
             serializer = TodoItemSerializer(queryset, many=True)
@@ -17,6 +29,9 @@ class TodoItemView(viewsets.ModelViewSet):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def create(self, request, *args, **kwargs):
+        '''
+        `create`: Creates a new TodoItem object.
+        '''
         try:
             serializer = TodoItemSerializer(data=request.data)
             if serializer.is_valid():
@@ -27,6 +42,9 @@ class TodoItemView(viewsets.ModelViewSet):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def update(self, request, *args, **kwargs):
+        '''
+        `update`: Updates an existing TodoItem object.
+        '''
         try:
             instance = self.get_object()
             serializer = TodoItemSerializer(instance, data=request.data)
@@ -38,6 +56,9 @@ class TodoItemView(viewsets.ModelViewSet):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def destroy(self, request, *args, **kwargs):
+        '''
+        `destroy`: Deletes a TodoItem object from the todo list.
+        '''
         try:
             instance = self.get_object()
             instance.delete()
