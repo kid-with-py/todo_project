@@ -4,7 +4,7 @@ from django.urls import path, include
 
 
 router = DefaultRouter()
-router.register('todoitems', TodoItemView)
+router.register(r'todoitems', TodoItemView)
 
 urlpatterns = [
     path('', include(router.urls))
