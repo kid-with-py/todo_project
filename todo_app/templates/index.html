@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <ul>
+        {% for todo_item in todo_items %}
+            <li>
+                {{ todo_item.title }}
+                <a href="{% url 'todo_app:edit_todoitem' todo_item.id %}">Edit</a>
+                <a href="{% url 'todo_app:delete_todoitem' todo_item.id %}">Delete</a>
+            </li>
+        {% empty %}
+            <li>No todo items available.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'todo_app:add_todoitem' %}">Add Todo Item</a>
+</body>
+</html>
